@@ -22,9 +22,9 @@ WORKDIR /app
 COPY environment.yml .
 
 ARG MLFINLAB_API_KEY
-# ENV MLFINLAB_API_KEY=${MLFINLAB_API_KEY}
+ENV MLFINLAB_API_KEY=${MLFINLAB_API_KEY}
 
-RUN [ "MLFINLAB_API_KEY=$MLFINLAB_API_KEY", "conda", "env", "create", "-f", "environment.yml"]
+RUN [ "conda", "env", "create", "-f", "environment.yml"]
 # && conda clean --all --yes
 
 SHELL [ "/bin/bash", "-c" ]
