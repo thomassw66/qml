@@ -9,8 +9,8 @@ RUN pacman -Syu --noconfirm && \
 RUN pacman -S --noconfirm python
 
 # Download and install Mambaforge (which includes mamba)
-RUN wget -O /tmp/Mambaforge.sh https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh && \
-    chmod +x /tmp/Mambaforge.sh && \
+RUN wget -O /tmp/Mambaforge.sh "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
+RUN chmod +x /tmp/Mambaforge.sh && \
     /tmp/Mambaforge.sh -b -p /opt/mambaforge && \
     rm /tmp/Mambaforge.sh
 
