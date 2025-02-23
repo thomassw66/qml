@@ -1,5 +1,5 @@
 # Use a Manjaro base image. (Ensure this image is available locally or on Docker Hub)
-FROM manjaro
+FROM manjarolinux/base
 
 # Update system and install required tools
 RUN pacman -Syu --noconfirm && \
