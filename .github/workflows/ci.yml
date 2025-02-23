@@ -18,7 +18,7 @@ jobs:
           
       # 2. Build the Docker image using your Dockerfile
       - name: Build Docker Image
-        with: 
+        env: 
           MLFINLAB_API_KEY: ${{ secrets.MLFINLAB_API_KEY }}
         run: |
           docker build -t qml-manjaro .
@@ -27,7 +27,7 @@ jobs:
       #    Here, we mount the repository into the container at /workspace,
       #    set the working directory to /workspace, and run the test command.
       - name: Run Test Suite
-        with: 
+        env: 
           MLFINLAB_API_KEY: ${{ secrets.MLFINLAB_API_KEY }}
         run: |
           docker run --rm \
