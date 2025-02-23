@@ -1,0 +1,37 @@
+name: Build and Test Docker Image
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+          
+      # 2. Build the Docker image using your Dockerfile
+      - name: Build Docker Image
+        with: 
+          MLFINLAB_API_KEY: ${{ secrets.MLFINLAB_API_KEY }}
+        run: |
+          docker build -t qml-manjaro .
+
+      # 3. Run the test suite inside a container based on the image.
+      #    Here, we mount the repository into the container at /workspace,
+      #    set the working directory to /workspace, and run the test command.
+      - name: Run Test Suite
+        with: 
+          MLFINLAB_API_KEY: ${{ secrets.MLFINLAB_API_KEY }}
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}:/app \
+            -w /workspace \
+            qml-manjaro \
+            /bin/bash -c "echo \'its working\'"
