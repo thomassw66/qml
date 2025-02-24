@@ -19,13 +19,30 @@ ENV PATH="/opt/mambaforge/bin:$PATH"
 
 WORKDIR /app
 
-COPY environment.yml .
+
+
+RUN [ "conda", "create", "-n", "mlfinlab_env", "python=3.11"]
+RUN pacman -Syu --noconfirm git
+
+RUN [ "conda", "init" ]
 
 ARG MLFINLAB_API_KEY
-ENV MLFINLAB_API_KEY=${MLFINLAB_API_KEY}
+ARG REPOSITORY_HANDLER_URL
 
-RUN [ "conda", "env", "create", "-f", "environment.yml"]
-# && conda clean --all --yes
+RUN /bin/bash -c  "source /root/.bashrc && conda activate mlfinlab_env && pip install \"mlfinlab[all] @ ${REPOSITORY_HANDLER_URL}\""
+# RUN [ "conda", "activate", "mlfinlab_env" ]
 
-SHELL [ "/bin/bash", "-c" ]
-CMD ["conda", "run", "--no-capture-output", "-n", "mlfinlab_env", "pytest", "-v" ]
+CMD [ "bash", "-c", "scripts/run_tests_container.sh"]
+
+#COPY environment.yml .
+#
+## && conda clean --all --yes
+#
+#SHELL [ "/bin/bash", "-c" ]
+#CMD ["conda", "run", "--no-capture-output", "-n", "mlfinlab_env", "pytest", "-v" ]
+
+# FROM hudsonthames/mlfinlab-base:buildx-latest
+# ARG MLFINLAB_API_KEY
+# 
+# CMD [ "bash", "/startup.sh" ]
+

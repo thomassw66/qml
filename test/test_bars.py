@@ -16,9 +16,9 @@ def sample_data():
 
 def test_dollar_bars(sample_data):
     for df in sample_data:
-        expected = get_dollar_bars(data, threshold=70000000,
+        expected = get_dollar_bars(sample_data, threshold=70000000,
                                    batch_size=1000000, verbose=True)
-        actual = bars.get_dollar_bars(data, threhold=70000000)
+        actual = bars.get_dollar_bars(sample_data, threhold=70000000)
 
         assert actual.shape == expected.shape
 
