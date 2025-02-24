@@ -25,30 +25,30 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          push: true
-          tags: ghcr.io/${{ github.repository }}:latest
-          # Use GitHub Actions cache for build layers
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          build-args: |
-            MLFINLAB_API_KEY=${{ secrets.MLFINLAB_API_KEY }}
-            REPOSITORY_HANDLER_URL=${{ secrets.REPOSITORY_HANDLER_URL }}
+          # - name: Build and push Docker image
+          #   uses: docker/build-push-action@v3
+          #   with:
+          #     context: .
+          #     push: true
+          #     tags: ghcr.io/${{ github.repository }}:latest
+          #     # Use GitHub Actions cache for build layers
+          #     cache-from: type=gha
+          #     cache-to: type=gha,mode=max
+          #     build-args: |
+          #       MLFINLAB_API_KEY=${{ secrets.MLFINLAB_API_KEY }}
+          #       REPOSITORY_HANDLER_URL=${{ secrets.REPOSITORY_HANDLER_URL }}
 
       # 2. Build the Docker image using your Dockerfile
-      # - name: Build Docker Image
-      #   env: 
-      #     MLFINLAB_API_KEY: ${{ secrets.MLFINLAB_API_KEY }}
-      #     REPOSITORY_HANDLER_URL: ${{ secrets.REPOSITORY_HANDLER_URL }}
-      #   run: |
-      #     docker build \
-      #       --build-arg MLFINLAB_API_KEY="${MLFINLAB_API_KEY}" \
-      #       --build-arg REPOSITORY_HANDLER_URL="${REPOSITORY_HANDLER_URL}" \
-      #       -t qml-manjaro \
-      #       .
+      - name: Build Docker Image
+        env: 
+          MLFINLAB_API_KEY: ${{ secrets.MLFINLAB_API_KEY }}
+          REPOSITORY_HANDLER_URL: ${{ secrets.REPOSITORY_HANDLER_URL }}
+        run: |
+          docker build \
+            --build-arg MLFINLAB_API_KEY="${MLFINLAB_API_KEY}" \
+            --build-arg REPOSITORY_HANDLER_URL="${REPOSITORY_HANDLER_URL}" \
+            -t qml-manjaro \
+            .
 
       # 3. Run the test suite inside a container based on the image.
       #    Here, we mount the repository into the container at /workspace,
@@ -61,4 +61,4 @@ jobs:
             -v ${{ github.workspace }}:/app \
             -e MLFINLAB_API_KEY="${MLFINLAB_API_KEY}" \
             -w /app \
-            ghcr.io/${{ github.repository }}:latest
+            qml-manjaro
