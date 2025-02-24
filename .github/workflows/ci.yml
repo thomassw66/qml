@@ -37,5 +37,6 @@ jobs:
         run: |
           docker run \
             -v ${{ github.workspace }}:/app \
+            -e MLFINLAB_API_KEY="${MLFINLAB_API_KEY}" \
             -w /app \
             qml-manjaro
