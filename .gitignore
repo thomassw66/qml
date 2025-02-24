@@ -63,3 +63,5 @@ Thumbs.db
 
 .ipynb_checkpoints/
 data/
+test-results.xml
+
