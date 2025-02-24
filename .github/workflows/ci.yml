@@ -37,5 +37,5 @@ jobs:
         run: |
           docker run \
             -v ${{ github.workspace }}:/app \
-            -w /workspace \
+            -w /app \
             qml-manjaro
