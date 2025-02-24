@@ -32,7 +32,7 @@ ARG REPOSITORY_HANDLER_URL
 RUN /bin/bash -c  "source /root/.bashrc && conda activate mlfinlab_env && pip install \"mlfinlab[all] @ ${REPOSITORY_HANDLER_URL}\""
 # RUN [ "conda", "activate", "mlfinlab_env" ]
 
-CMD [ "bash", "-c", "/apps/scripts/run_tests_container.sh" ]
+CMD [ "bash", "-c", "/app/scripts/run_tests_container.sh" ]
 
 #COPY environment.yml .
 #
