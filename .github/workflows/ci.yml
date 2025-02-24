@@ -35,8 +35,7 @@ jobs:
         env: 
           MLFINLAB_API_KEY: ${{ secrets.MLFINLAB_API_KEY }}
         run: |
-          docker run --rm \
+          docker run \
             -v ${{ github.workspace }}:/app \
             -w /workspace \
-            qml-manjaro \
-            /bin/bash -c "bash scripts/run_tests_container.sh"
+            qml-manjaro
