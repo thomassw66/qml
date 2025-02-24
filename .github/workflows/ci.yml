@@ -39,4 +39,4 @@ jobs:
             -v ${{ github.workspace }}:/app \
             -w /workspace \
             qml-manjaro \
-            /bin/bash -c "scripts/run_tests_container.sh"
+            /bin/bash -c "bash scripts/run_tests_container.sh"
